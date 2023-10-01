@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from file_manager_app import build_main_window
+from signal_diagnosis_app import build_main_window
 
 class FileManagerApp(QApplication):
     def __init__(self, sys_argv):

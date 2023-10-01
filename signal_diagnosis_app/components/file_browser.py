@@ -1,11 +1,12 @@
 import os
 import shutil
 from PyQt5.QtWidgets import QTreeView, QFileSystemModel, QHeaderView
+from PyQt5.QtWidgets import QGroupBox, QVBoxLayout, QTreeWidget, QTreeWidgetItem
 from PyQt5.QtCore import QDir, Qt
 from PyQt5.QtCore import QObject, pyqtSlot
 import sys
 import subprocess
-from PyQt5.QtWidgets import QTreeView, QMenu, QAction, QApplication
+from PyQt5.QtWidgets import QTreeView, QMenu, QAction, QApplication, QGroupBox
 from PyQt5.QtCore import QDir, QMimeData, Qt
 from PyQt5.QtCore import QMimeData, QUrl
 from PyQt5.QtCore import QModelIndex
@@ -29,8 +30,8 @@ class FileBrowser(QTreeView):
         self.setModel(self.model)
         self.setRootIndex(self.model.index(root_path))
 
-        # 设置文件浏览器的列宽自适应内容
-        self.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        # # 设置文件浏览器的列宽自适应内容
+        # self.header().setSectionResizeMode(QHeaderView.ResizeToContents)
 
         # 展开根节点
         self.expand(self.rootIndex())
@@ -148,6 +149,19 @@ class FileBrowser(QTreeView):
             print("粘贴文件:", destination_file_path)
         except Exception as e:
             print("粘贴文件时出现错误:", str(e))
+
+class FileWindow(QGroupBox):
+    def __init__(self, title):
+        super().__init__(title)
+        self.file_browser = FileBrowser()
+        self.setup_ui()
+
+    def setup_ui(self):
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        layout.addWidget(self.file_browser)
+        
 
 # 示例用法
 if __name__ == "__main__":
